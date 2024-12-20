@@ -16,9 +16,9 @@ function Navbar() {
 
                 <div className='flex items-center gap-2'>
                     <ul className='flex font-medium items-center gap-5'>
-                        <li>Home</li>
-                        <li>Jobs</li>
-                        <li>Browse</li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/jobs">Jobs</a></li>
+                        <li><a href="/browse">Browse</a></li>
                     </ul>
                     {
                         !user ? (

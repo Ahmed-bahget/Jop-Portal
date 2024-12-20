@@ -8,6 +8,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { USER_API_END_POINT } from '@/utils/constant'
 import { toast } from 'sonner'
+import { useDispatch, useSelector } from 'react-redux'
+import { setloading } from '@/redux/authSlice'
 
 const Signup = () => {
 
@@ -19,6 +21,8 @@ const Signup = () => {
         role:"",
         file:""
     });
+    const {loading} = useSelector(store=> store.auth);
+    const dispatch = useDispatch();
     const navigate = useNavigate();    
 
     const changeEventHandler = (e)=>{
@@ -41,6 +45,7 @@ const Signup = () => {
             formData.append("file", input.file);
         }
         try {
+            dispatch(setloading(true));
             const res = await axios.post(`${USER_API_END_POINT}/register`, formData , {
                 headers:{
                     "Content-Type":"multipart/form-data"
@@ -53,6 +58,9 @@ const Signup = () => {
             }
         } catch (error) {
             console.log(error)
+        }
+        finally{
+            dispatch(setloading(false));
         }
     }
     
