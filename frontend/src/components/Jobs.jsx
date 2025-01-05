@@ -9,8 +9,8 @@ const Jobs = () => {
   return (
     <div>
       <Navbar />
-      <div className='max-w-[95%] mx-auto mt-5 flex gap-5'>
-        <div className='w-[10%]'>
+      <div className='max-w-[1100px] mx-auto mt-5 flex gap-5'>
+        <div className='w-[160px]'>
           <FilterCard />
         </div>
 

@@ -4,24 +4,27 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Button } from '../ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { LogOut, User2 } from 'lucide-react'
+import { useSelector } from 'react-redux'
+import store from '@/redux/store'
 
 function Navbar() {
-    let user = false;
+    // let user = true;
+    const {User} = useSelector(store=>store.auth)
     return (
         <div className='bg-white  mx-20 '>
             <div className='flex items-center justify-between mx-auto max-w-7xl h-16'>
                 <div>
-                    <h1 className='text-2xl font-bold'>Job<span className='text-[#f83002]'>Portal</span></h1>
+                    <h1 className='text-2xl font-bold'>Job<span className='text-[#464ab7]'>Seekers</span></h1>
                 </div>
 
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-3'>
                     <ul className='flex font-medium items-center gap-5'>
                         <li><a href="/">Home</a></li>
                         <li><a href="/jobs">Jobs</a></li>
                         <li><a href="/browse">Browse</a></li>
                     </ul>
                     {
-                        !user ? (
+                        !User ? (
                             <div className='flex items-center gap-2'>
                                 <Link to="/login"><Button variant='outline'>Login</Button></Link>
                                 <Link to="signup"><Button className='bg-[#6A38C2] hover:bg-[#3d059d]'>Signup</Button></Link>
@@ -48,7 +51,7 @@ function Navbar() {
                             <div className='flex flex-col gap-3 my-2 text-gray-600'>
                                 <div className='flex w-fit items-center gap-2 cursor-pointer'>
                                     <User2 />
-                                    <Button variant="link">view profile</Button>
+                                    <Button variant="link"><Link to='/profile'>view profile</Link></Button>
                                 </div>
                                 <div className='flex w-fit items-center gap-2 cursor-pointer'>
                                     <LogOut />

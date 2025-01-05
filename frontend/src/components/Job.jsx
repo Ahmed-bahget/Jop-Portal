@@ -9,7 +9,7 @@ const Job = () => {
     return (
         <div className='ml-5 border border-gray-100 rounded-md p-4 shadow-xl bg-white'>
             <div className='flex items-center justify-between'>
-                <p>2 days ago</p>
+                <p className='text-sm text-gray-500'>2 days ago</p>
                 <Button variant='outline' className='rounded-full' size='icon'> <Bookmark /> </Button>
             </div>
             <div className='flex items-center gap-2 my-2'>
@@ -31,6 +31,10 @@ const Job = () => {
                 <Badge variant='ghost' className='text-blue-700 font-bold '>12 position</Badge>
                 <Badge variant='ghost' className='text-red-600 font-bold'>Full Time</Badge>
                 <Badge variant='ghost' className='text-[#6A38C2] font-bold'>1200$</Badge>
+            </div>
+            <div className='flex items-center gap-4 mt-4'>
+                <Button variant='outline' className=''>Details</Button>
+                <Button className='bg-[#6A38C2]'>Save For Later</Button>
             </div>
         </div>
     )
