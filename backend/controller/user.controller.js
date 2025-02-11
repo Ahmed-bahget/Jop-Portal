@@ -2,6 +2,8 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookie from "cookie-parser";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req,res)=>{
     try{
@@ -9,9 +11,16 @@ export const register = async (req,res)=>{
     if(!fullname || !email || !phoneNumber || !password || !role){
         return res.status(400).json({
             message:'something is missing',
-            success: false
+            success: false,
         });
     }
+
+    // console.log(req.file, req.body);
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
+
     const user = await User.findOne({email});
     if(user){
         return res.status(400).json({
@@ -26,7 +35,10 @@ export const register = async (req,res)=>{
         email,
         phoneNumber,
         password:hashPassword,
-        role
+        role,
+        profile:{
+            profilePhoto: cloudResponse.secure_url,
+        }
     });
 
     return res.status(201).json({
@@ -74,7 +86,7 @@ export const login = async (req,res)=>{
         id: user._id
     }
 
-    const token = jwt.sign(tokenData,process.env.secret_accesstoken, {expiresIn:'1d'});
+    const token = jwt.sign(tokenData,process.env.secret_accesstoken, {expiresIn:'10h'});
 
     user = {
         id: user._id,
@@ -110,9 +122,8 @@ export const logout = async (req,res)=>{
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
-        const file = req.file;
 
-        let skillsArray;
+        let skillsArray; 
         
         if (skills) {
             skillsArray = skills.split(",");
@@ -130,7 +141,11 @@ export const updateProfile = async (req, res) => {
 
         if (fullname) user.fullname = fullname;
         if (email) user.email = email;
-        if (phoneNumber) user.phoneNumber = phoneNumber;
+        // if (phoneNumber) user.phoneNumber = phoneNumber;
+        if (phoneNumber) {
+            const phone = Number(phoneNumber);
+            user.phoneNumber = phone;
+        }
         if (bio) user.profile.bio = bio;
         if (skills) user.profile.skills = skillsArray;
 
