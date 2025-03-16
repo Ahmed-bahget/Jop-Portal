@@ -57,7 +57,7 @@ const Profile = () => {
           <Label className='text-medium font-bold'>Resume</Label>
 
           {
-            isResume ? <a href='https://www.youtube.com/watch?v=F5EYXc91Cpo&t=16421s' className='text-pink-500 hover:underline w-full cursor-pointer' target='blank'> Any Video</a> : <span>NA</span>
+            isResume ? <a href={User?.profile?.resume} className='text-pink-500 hover:underline w-full cursor-pointer' target='blank'> {User?.profile?.resumeOriginalName}</a> : <span>NA</span>
           }
         </div>
       </div>

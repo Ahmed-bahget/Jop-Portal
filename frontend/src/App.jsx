@@ -3,12 +3,15 @@ import Navbar from './components/shared/Navbar'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Home from './components/Home'
-// import LatestJobCards from './components/LatestJobCards'
-// import LatestJobs from './components/LatestJobs'
 import Jobs from './components/Jobs'
 import Browse from './components/Browse'
 import Profile from './components/Profile'
 import JobDescription from './components/JobDescription'
+import Logout from './components/auth/Logout'
+import Companies from './components/admin/Companies'
+import CompanySetup from './components/admin/CompanySetup'
+import { CompanyCreate } from './components/admin/CompanyCreate'
+import AdminJobs from './components/admin/AdminJobs'
 
 const appRouter = createBrowserRouter([
   {
@@ -28,6 +31,10 @@ const appRouter = createBrowserRouter([
     element:<Signup/>
   },
   {
+    path:'/logout',
+    element:<Logout/>
+  },
+  {
     path:'/jobs',
     element:<Jobs/>
   },
@@ -43,6 +50,23 @@ const appRouter = createBrowserRouter([
     path:'/profile',
     element:<Profile/>
   },
+  // ADMIN ROUTES
+  {
+    path:"/admin/companies",
+    element:<Companies/>
+  },
+  {
+    path:"/admin/companies/create",
+    element:<CompanyCreate/>
+  },
+  {
+    path:"/admin/companies/:id",
+    element:<CompanySetup/>
+  },
+  {
+    path:"/admin/jobs",
+    element:<AdminJobs/>
+  }
 ])
 
 
