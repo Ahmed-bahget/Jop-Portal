@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RadioGroup, RadioGroupItem } from './ui/radio-group'
 import { Label } from './ui/label'
+import { setSearchedQuery } from '@/redux/jobSlice'
+import { useDispatch } from 'react-redux'
 
 const filterData = [
   {
@@ -19,38 +21,41 @@ const filterData = [
 
 
 const FilterCard = () => {
+  const [selectedValue, setSelectedValue] = useState("");
+  const dispatch = useDispatch();
+
+  const changeHandler = (value)=>{
+    setSelectedValue(value);
+  };
+  useEffect(()=>{
+    dispatch(setSearchedQuery(selectedValue))
+  },[selectedValue])
+
   return (
     <div className='flex flex-col gap-4 bg-white  p-3 w-full rounded-md'>
       <div className=''>
         <h1 className='font-bold text-lg'>Filter Card</h1>
         <hr className='my-3' />
         <div>
-          <RadioGroup className=''>
+          <RadioGroup value={selectedValue} onValueChange={changeHandler}>
             {
               filterData.map((data, index) => (
                 <div>
                   <h1 className='text-lg font-bold'>{data.filterType}</h1>
 
                   {
-                    data.array.map((arr, index) => {
+                    data.array.map((arr, idx) => {
+                      const itemId = `id${index}-${idx}`
                       return(
                       <div className='flex items-center space-x-2 '>
-                        <RadioGroupItem value={arr} id={arr} />
-                        <Label htmlFor={arr} className='ml-1 text-sm text-gray-700'> {arr}</Label>
+                        <RadioGroupItem value={arr} id={itemId} />
+                        <Label htmlFor={itemId} className='ml-1 text-sm text-gray-700'> {arr}</Label>
                       </div>
                     )})
                   }
                 </div>
               ))
             }
-            {/* <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-one" id="option-one" />
-              <Label htmlFor="option-one">Option One</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-two" id="option-two" />
-              <Label htmlFor="option-two">Option Two</Label>
-            </div> */}
           </RadioGroup>
 
         </div>

@@ -8,6 +8,7 @@ import { Label } from './ui/label'
 import AppliedJobTable from './AppliedJobTable'
 import UpdateProfileDialog from './UpdateProfileDialog'
 import { useSelector } from 'react-redux'
+import useGetAppliedJobs from '@/hooks/useGetAppliedJobs'
 
 // const skills = ["html", "css", "javascript", "node", "react"];
 const isResume = true;
@@ -15,6 +16,7 @@ const isResume = true;
 const jobName = 'Full-Stack Developer'
 
 const Profile = () => {
+  useGetAppliedJobs();
   const [open, setOpen] = useState(false);
   const {User} = useSelector(store => store.auth);
 
@@ -57,7 +59,7 @@ const Profile = () => {
           <Label className='text-medium font-bold'>Resume</Label>
 
           {
-            isResume ? <a href={User?.profile?.resume} className='text-pink-500 hover:underline w-full cursor-pointer' target='blank'> {User?.profile?.resumeOriginalName}</a> : <span>NA</span>
+            isResume ? <a href={User?.profile?.resume} className='text-red-600 hover:underline w-full cursor-pointer' target='blank'> {User?.profile?.resumeOriginalName}</a> : <span>NA</span>
           }
         </div>
       </div>

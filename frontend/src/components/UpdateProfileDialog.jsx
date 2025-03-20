@@ -37,7 +37,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     const submitHandler = async (e) => {
         e.preventDefault();
         console.log(User);
-        if (!input.phoneNumber || input.phoneNumber.trim() === "") {
+        if (!input.phoneNumber ) {
             toast.error("Phone number is required");
             return;
         }
@@ -49,7 +49,9 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         formData.append("skills", input.skills);
         
         if(input.file){
-            formData.append("file", input.file)
+            formData.append("file", input.file);
+            console.log(input.file);
+            
         }
         try {
             const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData,{
