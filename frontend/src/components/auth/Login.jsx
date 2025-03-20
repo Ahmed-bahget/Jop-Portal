@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { USER_API_END_POINT } from '@/utils/constant'
 import { useDispatch, useSelector } from 'react-redux'
-import { setloading } from '@/redux/authSlice'
+import { setloading, setUser } from '@/redux/authSlice'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -19,17 +19,13 @@ const Login = () => {
         password: "",
         role: "",
     })
-    const { loading } = useSelector(store => store.auth)
+    const { loading, User } = useSelector(store => store.auth)
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
-    }
-
-    const changeFileHandler = (e) => {
-        setInput({ ...input, file: e.target.files?.[0] });
     }
 
     const submitHandler = async (e) => {
@@ -44,6 +40,7 @@ const Login = () => {
                 withCredentials: true
             });
             if (res.data.success) {
+                dispatch(setUser(res.data.user))
                 navigate('/')
                 toast.success(res.data.message)
             }
@@ -56,6 +53,12 @@ const Login = () => {
 
     }
 
+    useEffect(()=>{
+        if(User){
+            navigate('/')
+        }
+    },[]);
+
     return (
         <div>
             <Navbar />
@@ -67,7 +70,7 @@ const Login = () => {
                         <Input
                             type='email'
                             value={input.email}
-                            name="email"
+                            name="email" 
                             onChange={changeEventHandler}
                             placeholder='patel@gmai.com'
                         />

@@ -1,9 +1,10 @@
 import {Job} from "../models/job.model.js"
 export const postJob = async (req, res)=>{
     try {
-        const {title,description,requirements,jobType,location,experience,salary,position,companyId} = req.body;
+        const {title,description,requirements,jobType,location,experienceLevel,salary,position,companyId} = req.body;
         const userId = req.id;
-        if(!title || !description || !requirements || !jobType || !location || !experience || !salary || !position || !companyId){
+        if(!title || !description || !requirements || !jobType || !location || !experienceLevel || !salary || !position || !companyId){
+            console.log(title,description,requirements,jobType,location,experienceLevel,salary,position,companyId);
             return res.status(400).json({
                 message:"something missing",
                 success:false
@@ -16,7 +17,7 @@ export const postJob = async (req, res)=>{
             salary:Number(salary),
             location,
             jobType,
-            experienceLevel:experience,
+            experienceLevel:experienceLevel,
             position,
             company:companyId,
             created_by:userId
@@ -61,7 +62,7 @@ export const getAllJobs = async (req,res)=>{
 export const getJobById = async (req,res)=>{
     try {
         const jobId = req.params.id;
-        const job = await Job.findById(jobId);
+        const job = await Job.findById(jobId).populate({path:"applications"});
         if(!job){
             return res.status(404).json({
                 message:"no jobs found",
