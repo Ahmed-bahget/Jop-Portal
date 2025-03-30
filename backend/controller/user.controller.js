@@ -53,7 +53,7 @@ export const register = async (req,res)=>{
 export const login = async (req,res)=>{
     try {
     const {email , password , role} = req.body;
-    if(!email ||!password || !role){
+    if(!email || !password || !role){
         return res.status(400).json({
             message:'something is missing',
             success:false
@@ -124,8 +124,11 @@ export const updateProfile = async (req, res) => {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         const file = req.file;   
         const fileData = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileData.content,{resource_type: 'auto'});
+        const cloudResponse = await cloudinary.uploader.upload(fileData.content, {
+            resource_type: 'auto'
+        });
 
+        
         let skillsArray; 
         if (skills) {
             skillsArray = skills.split(",");
@@ -165,8 +168,15 @@ export const updateProfile = async (req, res) => {
             role: user.role,
             profile: user.profile
         };
+        const token = req.cookies.token;
 
-        return res.status(200).json({
+        if (!token) {
+            return res.status(401).json({
+                message: "Authentication token not found",
+                success: false
+            });
+        }
+        return res.status(200).cookie("token",token,{ maxAge: 10 * 60 * 60 * 1000, httpOnly: true, sameSite: 'None', secure: true }).json({
             message: "profile updated successfully",
             user: responseUser,
             success: true
@@ -180,20 +190,3 @@ export const updateProfile = async (req, res) => {
     }
 };
 
-
-
-// export const updatePassword = async (req,res) => {
-//     try {
-//         const {id} = req.params;
-//         const {password , newPassword} = req.body;
-//         const user = User.findOne({id});
-//         if(!user){
-//             return res.status(400).json({
-//                 message:"there is no user"
-//             })
-//         }
-        
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }

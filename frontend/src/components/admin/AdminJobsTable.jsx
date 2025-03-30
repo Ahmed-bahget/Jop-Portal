@@ -12,14 +12,19 @@ const AdminJobsTable = () => {
     const [filterJobs, setFilterJobs] = useState(allAdminJobs);
 
     useEffect(() => {
-        const filteredJob = allAdminJobs.length > 0 && allAdminJobs.filter((job) => {
-            if (!searchJobByText) {
-                return true
-            };
-            return job?.title?.toLowerCase().includes(searchJobByText.toLowerCase()) || job?.company?.name.toLowerCase().includes(searchJobByText.toLowerCase());
-        })
-        setFilterJobs(filteredJob);
-    }, [allAdminJobs, searchJobByText])
+        if (Array.isArray(allAdminJobs)) {
+            const filteredJob = allAdminJobs.filter((job) => {
+                if (!searchJobByText) {
+                    return true;
+                }
+                return job?.title?.toLowerCase().includes(searchJobByText.toLowerCase()) ||
+                    job?.company?.name?.toLowerCase().includes(searchJobByText.toLowerCase());
+            });
+            setFilterJobs(filteredJob); 
+        } else {
+            setFilterJobs([]); 
+        }
+    }, [allAdminJobs, searchJobByText]);
     
     return (
         <div>

@@ -9,13 +9,11 @@ const authSlice = createSlice({
         User:null,
     },
     reducers:{
-        //actions
         setloading:(state,action)=>{
             state.loading = action.payload;
         },
         setUser: (state, action) => {
             state.User = action.payload;
-            // localStorage.setItem("user", JSON.stringify(action.payload));
         }
     } 
 });
