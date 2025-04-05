@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
 const corsOptions = {
-    origin:'http://localhost:5173',
+    origin:'https://jop-portal-three.vercel.app',
     credentials:true
 }
 app.use(cors(corsOptions));
