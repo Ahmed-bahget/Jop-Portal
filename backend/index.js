@@ -16,6 +16,9 @@ app.get('/home' , (req,res)=>{
         success:true
     })
 })
+app.get('/' , (req,res)=>{
+    res.status(200).send("<h1>hello in our jobportal website<h1/>")
+})
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
