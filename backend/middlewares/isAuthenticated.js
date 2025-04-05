@@ -10,7 +10,7 @@ const isAuthenticated = async (req, res, next) => {
             });
         }
 
-        const decode = jwt.verify(token, process.env.secret_accesstoken); 
+        const decode = jwt.verify(token, process.env.SECRET_ACCESSTOKEN); 
         if (!decode) {
             return res.status(401).json({
                 message: "invalid token",
