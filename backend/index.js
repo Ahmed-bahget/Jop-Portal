@@ -23,10 +23,25 @@ app.get('/' , (req,res)=>{
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
+const allowedOrigins = [
+  'https://jop-portal-git-main-ahmeds-projects-2d35e5c9.vercel.app',
+  'https://jop-portal-three.vercel.app', // Add other URLs if needed
+];
+
 const corsOptions = {
-    origin:'https://jop-portal-git-main-ahmeds-projects-2d35e5c9.vercel.app/',
-    credentials:true
-}
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+};
+// const corsOptions = {
+//     origin:'https://jop-portal-git-main-ahmeds-projects-2d35e5c9.vercel.app/',
+//     credentials:true
+// }
 app.use(cors(corsOptions));
 
 const port = process.env.PORT || 2000 ;
