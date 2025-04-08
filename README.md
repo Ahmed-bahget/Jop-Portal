@@ -82,3 +82,32 @@ npm start
 cd job-portal/frontend
 npm install
 npm run dev
+
+🔐 API Documentation
+Base URL: http://localhost:5000/api
+
+Auth Routes
+POST /auth/register - Register new user
+
+POST /auth/login - Login and receive token
+
+Job Routes
+GET /jobs - Get all jobs
+
+POST /jobs - Create job (Employer only)
+
+PUT /jobs/:id - Update job
+
+DELETE /jobs/:id - Delete job
+
+User Routes
+GET /profile - Get user profile
+
+PUT /profile - Update user profile
+
+POST /apply/:jobId - Apply for a job
+
+👨‍💻 Developed by
+Ahmed Bahget Elsayed
+
+Feel free to connect .
