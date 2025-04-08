@@ -62,27 +62,6 @@ Welcome to the **Job Portal App** — a full-featured job portal platform that c
 - **Database**: MongoDB (cloud-hosted via MongoDB Atlas)
 
 ---
-
-## 🚀 Getting Started
-
-Follow these instructions to set up the backend on your local machine:
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/Ahmed-bahget/Jop-Portal.git
--backend
-cd job-portal/backend
-npm install
-PORT=1500
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-npm start
--frontend
-cd job-portal/frontend
-npm install
-npm run dev
-
 ## 🔐 API Documentation
 Base URL: http://localhost:5000/api
 
@@ -111,3 +90,23 @@ POST /apply/:jobId - Apply for a job
 Ahmed Bahget Elsayed
 
 Feel free to connect.
+
+## 🚀 Getting Started
+
+Follow these instructions to set up the backend on your local machine:
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Ahmed-bahget/Jop-Portal.git
+-backend
+cd job-portal/backend
+npm install
+PORT=1500
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+npm start
+-frontend
+cd job-portal/frontend
+npm install
+npm run dev
