@@ -25,7 +25,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
 const allowedOrigins = [
   'https://jop-portal-git-main-ahmeds-projects-2d35e5c9.vercel.app',
-  'https://jop-portal-three.vercel.app', // Add other URLs if needed
+  'https://jop-portal-three.vercel.app', 
+  'http://localhost:5173'
 ];
 
 const corsOptions = {
