@@ -83,7 +83,7 @@ cd job-portal/frontend
 npm install
 npm run dev
 
-##🔐 API Documentation
+## 🔐 API Documentation
 Base URL: http://localhost:5000/api
 
 Auth Routes
@@ -107,7 +107,7 @@ PUT /profile - Update user profile
 
 POST /apply/:jobId - Apply for a job
 
-##👨‍💻 Developed by
+## 👨‍💻 Developed by
 Ahmed Bahget Elsayed
 
 Feel free to connect.
