@@ -6,41 +6,19 @@ Welcome to the **Job Portal App** — a full-featured job portal platform that c
 
 ---
 
-## 📚 Table of Contents
-
-- [Features](#-features)
-- [Technologies Used](#-technologies-used)
-- [Project Architecture](#-project-architecture)
-- [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
-- [API Documentation](#-api-documentation)
-- [Folder Structure](#-folder-structure)
-- [Contributing](#-contributing)
-- [License](#-license)
-
----
-
 ## ✨ Features
 
 ### 👤 User Side
-- Register and Login (JWT-based authentication)
+- Register and Login with profile picture upload
 - Create and update personal profile
-- Browse job listings
-- Apply for jobs
+- Browse job listings and apply
 - Track application status
 
-### 🏢 Employer Side
-- Register and Login
-- Create company profile
+### 🏢 Company Side
+- Register company profile
 - Post new job listings
-- Manage posted jobs
-- View applicants for each job
-
-### 🛡️ Admin (Optional)
-- Manage users
 - Manage job postings
-- Analytics dashboard (planned)
-
+- View applicants for each job
 ---
 
 ## 🛠 Technologies Used
@@ -62,34 +40,43 @@ Welcome to the **Job Portal App** — a full-featured job portal platform that c
 - **Database**: MongoDB (cloud-hosted via MongoDB Atlas)
 
 ---
-## 🔐 API Documentation
-Base URL: http://localhost:5000/api
+🔐 API Endpoints
+👤 User Routes (/api/v1/user)
+POST /register – Register user with profile picture upload
 
-Auth Routes
-POST /auth/register - Register new user
+POST /login – Login user
 
-POST /auth/login - Login and receive token
+GET /logout – Logout user
 
-Job Routes
-GET /jobs - Get all jobs
+POST /profile/update – Update user profile (auth + upload required)
 
-POST /jobs - Create job (Employer only)
+🏢 Company Routes (/api/v1/company)
+POST /registerCompany – Register a new company (auth + upload required)
 
-PUT /jobs/:id - Update job
+GET /get – Get all companies (auth)
 
-DELETE /jobs/:id - Delete job
+GET /get/:id – Get company by ID (auth)
 
-User Routes
-GET /profile - Get user profile
+PUT /update/:id – Update company info (auth + upload required)
 
-PUT /profile - Update user profile
+💼 Job Routes (/api/v1/job)
+POST /post – Post a new job (auth)
 
-POST /apply/:jobId - Apply for a job
+GET /get – Get all jobs (auth)
 
-## 👨‍💻 Developed by
-Ahmed Bahget Elsayed
+GET /get/:id – Get job by ID (auth)
 
-Feel free to connect.
+GET /getadminjobs – Get jobs created by logged-in employer (auth)
+
+📄 Application Routes (/api/v1/application)
+GET /apply/:id – Apply for a job by job ID (auth)
+
+GET /get – Get all jobs user has applied to (auth)
+
+GET /:id/applicants – Get applicants for a job (auth)
+
+POST /status/:id/update – Update status of an applicant (auth)
+
 
 ## 🚀 Getting Started
 
