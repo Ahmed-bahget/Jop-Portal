@@ -57,13 +57,13 @@ function Navbar() {
                                 </PopoverTrigger>
                                 <PopoverContent className='w-80'>
                                     <div className=''>
-                                        <div className='flex gap-2 space-y-2'>
-                                            <Avatar className="cursor-pointer">
+                                        <div className='flex gap-2 space-y-2 items-center'>
+                                            <Avatar className="cursor-pointer w-15">
                                                 <AvatarImage src={User?.profile?.profilePhoto} alt="@shadcn" />
                                             </Avatar>
                                             <div className=''>
                                                 <h4 className='font-medium'>{User?.fullname}</h4>
-                                                <p className='text-sm text-muted-foreground'>{User?.profile?.bio} </p>
+                                                <p className='text-sm text-gray-350 text-muted-foreground'>{User?.profile?.bio} </p>
                                             </div>
                                         </div>
                                     </div>
@@ -90,28 +90,25 @@ function Navbar() {
                 </div>
             </div>
             {menuOpen && (
-                <div className="md:hidden absolute bg-white w-full left-0 shadow-md p-4">
+                <div className="md:hidden absolute bg-white w-[45%] right-0 border border-gray-400 shadow-md p-4 z-50 rounded-lg ">
                     <div className="flex flex-col gap-3">
-                        <Avatar className="cursor-pointer">
-                            <AvatarImage src={User?.profile?.profilePhoto} alt="@shadcn" />
-                        </Avatar>
                         {User?.role === "recruiter" ? (
                             <>
-                                <Link to="/" className="hover:text-[#464ab7]">Company</Link>
-                                <Link to="/admin/jobs" className="hover:text-[#464ab7]">Jobs</Link>
+                                <Link to="/" className="hover:text-[#464ab7] text-[#16185e] border rounded-full hover:bg-gray-100 text-center  border-gray-400">Company</Link>
+                                <Link to="/admin/jobs" className="hover:text-[#464ab7] text-[#16185e] border rounded-full hover:bg-gray-100 text-center  border-gray-400">Jobs</Link>
                             </>
                         ) : (
                             <>
-                                <Link to="/" className="hover:text-[#464ab7]">Home</Link>
-                                <Link to="/jobs" className="hover:text-[#464ab7]">Jobs</Link>
-                                <Link to="/browse" className="hover:text-[#464ab7]">Browse</Link>
+                                <Link to="/" className="hover:text-[#464ab7] border rounded-full text-[#16185e] hover:bg-gray-100 text-center  border-gray-400">Home</Link>
+                                <Link to="/jobs" className="hover:text-[#464ab7] border rounded-full text-[#16185e] hover:bg-gray-100 text-center  border-gray-400">Jobs</Link>
+                                <Link to="/browse" className="hover:text-[#464ab7] border rounded-full text-[#16185e] hover:bg-gray-100 text-center  border-gray-400">Browse</Link>
                             </>
                         )}
 
                         {!User ? (
                             <>
                                 <Link to="/login">
-                                    <Button variant="outline" className="w-full">Login</Button>
+                                    <Button variant="outline" className="w-full  ">Login</Button>
                                 </Link>
                                 <Link to="/signup">
                                     <Button className="bg-[#6A38C2] hover:bg-[#3d059d] w-full">Signup</Button>
@@ -120,12 +117,12 @@ function Navbar() {
                         ) : (
                             <>
                                 {User?.role === "student" && (
-                                    <Link to="/profile" className="flex items-center gap-2">
+                                    <Link to="/profile" className="flex items-center gap-2 border rounded-full mt-3 hover:bg-gray-100 text-center p-1 border-gray-400">
                                         <User2 />
                                         <span>View Profile</span>
                                     </Link>
                                 )}
-                                <button onClick={handelLogout} className="flex items-center gap-2">
+                                <button onClick={handelLogout} className="flex items-center gap-2 border rounded-full hover:bg-gray-100 text-center p-1 border-gray-400">
                                     <LogOut />
                                     <span>Logout</span>
                                 </button>
