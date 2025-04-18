@@ -1,9 +1,18 @@
 import React, { useEffect } from 'react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel'
 import { Button } from './ui/button'
+import { Badge } from './ui/badge'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchedQuery } from '@/redux/jobSlice'
+import {
+  BriefcaseBusiness,
+  Code,
+  LineChart,
+  PenTool,
+  Server,
+  TabletSmartphone
+} from 'lucide-react'
 
 const category = [
   "Fullstack Developer",
@@ -14,39 +23,61 @@ const category = [
   "ASP.NET"
 ]
 
+// const categories = [
+//   { name: "Fullstack Developer", icon: <Code className="w-4 h-4 mr-2" /> },
+//   { name: "Frontend Developer", icon: <TabletSmartphone className="w-4 h-4 mr-2" /> },
+//   { name: "Backend Developer", icon: <Server className="w-4 h-4 mr-2" /> },
+//   { name: "Data Scientist", icon: <LineChart className="w-4 h-4 mr-2" /> },
+//   { name: "Graphic Designer", icon: <PenTool className="w-4 h-4 mr-2" /> },
+//   { name: "ASP.NET", icon: <BriefcaseBusiness className="w-4 h-4 mr-2" /> }
+// ]
 
 
 const CategoryCarousel = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {searchedQuery} = useSelector(store=> store.job);
+  const { searchedQuery, allJobs } = useSelector(store => store.job);
 
-  const searchJobHandler = (query)=>{
-      dispatch(setSearchedQuery(query));
-      navigate('/browse');
+  const searchJobHandler = (query) => {
+    dispatch(setSearchedQuery(query));
+    navigate('/browse');
   }
 
+
   return (
-    <div>
-      <Carousel className='w-full max-w-xl mx-auto my-20'>
-        <CarouselContent className="flex gap-4 ">
-          {
-            category.map((cat, index) => (
-              <CarouselItem key={index} className='flex mx-2 items-center basis-auto sm:basis-1/3 lg:basis-1/4'>
-                <Button
-                onClick={()=> searchJobHandler(cat)}
-                variant='outline' 
-                className='rounded-full px-4 py-2 text-sm sm:text-base'>
-                {cat}
-                </Button>
-              </CarouselItem>
-            ))
-          }
-        </CarouselContent>
-        <CarouselPrevious className="hidden sm:flex"/>
-        <CarouselNext className="hidden sm:flex"/>
-      </Carousel>
-    </div>
+    <section className="py-12 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8">
+          <Badge className="mb-3 bg-[#f0f1ff] text-[#464ab7] hover:bg-[#e8eaff]">
+            Explore Categories
+          </Badge>
+          <h2 className="text-2xl font-bold text-gray-900">Browse Jobs By Category</h2>
+          <p className="text-gray-500 mt-2">Find your perfect role in these specialized fields</p>
+        </div>
+        <div>
+          <Carousel className='w-full max-w-4xl mx-auto '>
+            <CarouselContent className="p-4 ">
+              {
+                category.map((cat, index) => (
+                  <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/3 p-1'>
+                    <Button
+                      onClick={() => searchJobHandler(cat)}
+                      variant='outline'
+                      className='w-full h-full flex items-center rounded-full justify-center gap-2 py-3 text-gray-700 hover:text-[#464ab7] hover:border-[#464ab7] transition-all'>
+                      {cat}
+                    </Button>
+                  </CarouselItem>
+                ))
+              }
+            </CarouselContent>
+            <div className="flex justify-center mt-4 gap-2">
+            <CarouselPrevious className="relative rounded-full" />
+            <CarouselNext className="relative rounded-full" />
+          </div>
+          </Carousel>
+        </div>
+      </div>
+    </section>
   )
 }
 

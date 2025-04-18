@@ -7,9 +7,15 @@ import useGetAllJobs from '@/hooks/useGetAllJobs'
 
 
 const Browse = () => {
+
     useGetAllJobs();
-    const { allJobs } = useSelector(store => store.job);
     const dispatch = useDispatch();
+    const { allJobs,searchedQuery } = useSelector(store => store.job);
+    useEffect(()=>{
+        if(searchedQuery){
+            dispatch(setSearchedQuery(""))
+        }
+    },[allJobs,dispatch])
 
     return (
         <div>
