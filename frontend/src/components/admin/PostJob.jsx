@@ -89,6 +89,7 @@ const PostJob = () => {
                             <Input
                                 type="text"
                                 name="requirements"
+                                placeholder='HTML, CSS, Javascript, ....'
                                 value={input.requirements}
                                 onChange={changeEventHandler}
                             />
@@ -98,6 +99,7 @@ const PostJob = () => {
                             <Input
                                 type="text"
                                 name="salary"
+                                placeholder='10000'
                                 value={input.salary}
                                 onChange={changeEventHandler}
                             />
@@ -116,6 +118,7 @@ const PostJob = () => {
                             <Input
                                 type="text"
                                 name="jobType"
+                                placeholder='Full time'
                                 value={input.jobType}
                                 onChange={changeEventHandler}
                             />

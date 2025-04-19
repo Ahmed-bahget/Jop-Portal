@@ -7,7 +7,6 @@
   import useGetAllJobs from '@/hooks/useGetAllJobs'
   import { useSelector } from 'react-redux'
   import { useNavigate } from 'react-router-dom'
-  import store from '@/redux/store'
 
   const Home = () => {
     const {searchedQuery} = useSelector(store=>store.job)

@@ -5,14 +5,6 @@ import { Badge } from './ui/badge'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchedQuery } from '@/redux/jobSlice'
-import {
-  BriefcaseBusiness,
-  Code,
-  LineChart,
-  PenTool,
-  Server,
-  TabletSmartphone
-} from 'lucide-react'
 
 const category = [
   "Fullstack Developer",
@@ -23,20 +15,11 @@ const category = [
   "ASP.NET"
 ]
 
-// const categories = [
-//   { name: "Fullstack Developer", icon: <Code className="w-4 h-4 mr-2" /> },
-//   { name: "Frontend Developer", icon: <TabletSmartphone className="w-4 h-4 mr-2" /> },
-//   { name: "Backend Developer", icon: <Server className="w-4 h-4 mr-2" /> },
-//   { name: "Data Scientist", icon: <LineChart className="w-4 h-4 mr-2" /> },
-//   { name: "Graphic Designer", icon: <PenTool className="w-4 h-4 mr-2" /> },
-//   { name: "ASP.NET", icon: <BriefcaseBusiness className="w-4 h-4 mr-2" /> }
-// ]
 
 
 const CategoryCarousel = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { searchedQuery, allJobs } = useSelector(store => store.job);
 
   const searchJobHandler = (query) => {
     dispatch(setSearchedQuery(query));
