@@ -10,9 +10,10 @@
 
   const Home = () => {
     const {searchedQuery} = useSelector(store=>store.job)
-    if(!searchedQuery){
-      useGetAllJobs();
-    }
+    // if(!searchedQuery){
+    //   useGetAllJobs();
+    // }
+    useGetAllJobs();
     const { User } = useSelector(store => store.auth);
     const navigate = useNavigate();
 

@@ -14,9 +14,9 @@ const Job = ({ job }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { User } = useSelector(store => store.auth)
-    const jobId = job._id
+    const jobId = job?._id
 
-    const isInitiallyApplied = (job?.applications || []).some(app => app.applicant === User._id);
+    const isInitiallyApplied = (job?.applications || []).some(app => app?.applicant === User?._id);
     const [isApplied, setIsApplied] = useState(isInitiallyApplied);
 
     const applyJobHandler = async () => {
@@ -39,7 +39,7 @@ const Job = ({ job }) => {
         }
     }
     useEffect(() => {
-        setIsApplied((job?.applications || []).some(app => app.applicant === User?._id));
+        setIsApplied((job?.applications || []).some(app => app?.applicant === User?._id));
     }, [job?.applications, User?._id]);
 
 
@@ -72,13 +72,13 @@ const Job = ({ job }) => {
                 <div className='flex gap-3'>
                     {job?.company?.logo ? (
                         <img
-                            src={job.company.logo}
-                            alt={job.company.name}
+                            src={job?.company?.logo}
+                            alt={job?.company?.name}
                             className="w-10 h-10 object-contain rounded-md border border-gray-100"
                         />
                     ) : (
                         <div className="w-10 h-10 rounded-md bg-[#f0f1ff] flex items-center justify-center text-[#464ab7] font-bold">
-                            {job.company?.name?.charAt(0) || 'C'}
+                            {job?.company?.name?.charAt(0) || 'C'}
                         </div>
                     )}
                     <div>

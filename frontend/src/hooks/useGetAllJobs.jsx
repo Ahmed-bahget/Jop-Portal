@@ -16,7 +16,7 @@ const useGetAllJobs = () => {
                     ? `${JOB_API_END_POINT}/get?keyword=${searchedQuery}`
                     : `${JOB_API_END_POINT}/get`;
 
-                const { data } = await axios.get(endpoint, { withCredentials: true });
+                const { data } = await axios.get(endpoint);
                 if (data.success) {
                     dispatch(setAllJobs(data.jobs));
                 }
