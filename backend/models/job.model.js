@@ -14,4 +14,6 @@ const jobSchema = new mongoose.Schema({
     applications:[{type:mongoose.Schema.Types.ObjectId, ref:'Application'}],
 },{timestamps:true});
 
+jobSchema.index({ title: "text", description: "text" });
+
 export const Job = mongoose.model('Job', jobSchema)

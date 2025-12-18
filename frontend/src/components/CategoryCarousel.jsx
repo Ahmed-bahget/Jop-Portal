@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel'
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { setSearchedQuery } from '@/redux/jobSlice'
+import { useDispatch } from 'react-redux'
+import { setSearchedQuery, clearFilters } from '@/redux/jobSlice'
 
 const category = [
   "Fullstack Developer",
@@ -15,17 +15,18 @@ const category = [
   "ASP.NET"
 ]
 
-
-
 const CategoryCarousel = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const searchJobHandler = (query) => {
+    console.log("CategoryCarousel - Setting search query:", query);
+    // Clear all filters first to avoid conflicts
+    dispatch(clearFilters());
+    // Set the search query and navigate to browse page
     dispatch(setSearchedQuery(query));
     navigate('/browse');
   }
-
 
   return (
     <section className="py-12 bg-white">
@@ -54,9 +55,9 @@ const CategoryCarousel = () => {
               }
             </CarouselContent>
             <div className="flex justify-center mt-4 gap-2">
-            <CarouselPrevious className="relative rounded-full" />
-            <CarouselNext className="relative rounded-full" />
-          </div>
+              <CarouselPrevious className="relative rounded-full" />
+              <CarouselNext className="relative rounded-full" />
+            </div>
           </Carousel>
         </div>
       </div>

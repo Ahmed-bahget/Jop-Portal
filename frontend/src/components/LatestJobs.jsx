@@ -1,23 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import LatestJobCards from './LatestJobCards'
 import { useSelector } from 'react-redux'
 import { Button } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Skeleton } from './ui/skeleton'
+import useGetAllJobs from '@/hooks/useGetAllJobs'
 
 
 const LatestJobs = () => {
+    useGetAllJobs();
     const { allJobs } = useSelector(store => store.job);
-    let jobs = allJobs;
+    console.log("LatestJobs - allJobs:", allJobs);
+    
+    useEffect(() => {
+        console.log("LatestJobs component mounted");
+    }, []);
+    
     const renderJobCards = () => {
-        if (!jobs) {
+        if (!allJobs) {
+            console.log("Jobs are still loading, showing skeletons");
             return Array(6).fill(0).map((_, idx) => (
                 <JobCardSkeleton key={idx} />
             ))
         }
 
-        if (!jobs || jobs.length === 0) {
+        if (allJobs.length === 0) {
+            console.log("No jobs found");
             return (
                 <div className="col-span-1 sm:col-span-2 lg:col-span-3 text-center py-12">
                     <h3 className="text-xl font-medium text-gray-700">No jobs available</h3>
@@ -26,10 +35,12 @@ const LatestJobs = () => {
             )
         }
 
-        return jobs.slice(0, 6).map((job) => (
+        console.log("Rendering jobs:", allJobs.slice(0, 6));
+        return allJobs.slice(0, 6).map((job) => (
             <LatestJobCards key={job._id} job={job} />
         ))
     }
+    
     return (
         <section className="bg-gray-50 py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">

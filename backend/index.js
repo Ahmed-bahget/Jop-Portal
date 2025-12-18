@@ -20,18 +20,35 @@ app.get('/' , (req,res)=>{
     res.status(200).send("<h1>hello in our jobportal website<h1/>")
 })
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        message: 'Backend is running',
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
 const allowedOrigins = [
   'https://jop-portal-git-main-ahmeds-projects-2d35e5c9.vercel.app',
   'https://jop-portal-three.vercel.app', 
-  'http://localhost:5173'
+  'http://localhost:5173',
+  ...(process.env.NODE_ENV === 'production' ? [/^https:\/\/.*\.koyeb\.app$/] : [])
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin is in allowed list
+    if (allowedOrigins.some(allowedOrigin => 
+      typeof allowedOrigin === 'string' ? 
+        origin === allowedOrigin : 
+        allowedOrigin.test(origin)
+    )) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -39,13 +56,8 @@ const corsOptions = {
   },
   credentials: true
 };
-// const corsOptions = {
-//     origin:'https://jop-portal-git-main-ahmeds-projects-2d35e5c9.vercel.app/',
-//     credentials:true
-// }
-app.use(cors(corsOptions));
 
-const port = process.env.PORT || 2000 ;
+app.use(cors(corsOptions));
 
 //api's
 app.use('/api/v1/user',userRoute);
@@ -53,8 +65,22 @@ app.use('/api/v1/company',companyRoute);
 app.use('/api/v1/job',jobRoute);
 app.use('/api/v1/application',applicationRoute);
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    message: "Something went wrong",
+    success: false
+  });
+});
 
-app.listen(port , ()=>{
-    connectDB();
-    console.log(`server is run on http://localhost:${port}`)
-})
+const PORT = process.env.PORT || 1500;
+
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+};
+
+startServer();
+

@@ -90,25 +90,25 @@ function Navbar() {
                 </div>
             </div>
             {menuOpen && (
-                <div className="md:hidden absolute bg-white w-[45%] right-0 border border-gray-400 shadow-md p-4 z-50 rounded-lg ">
-                    <div className="flex flex-col gap-3">
+                <div className="md:hidden absolute bg-white w-[45%] right-0 border border-gray-400 shadow-md p-4 z-50 rounded-md">
+                    <div className="flex flex-col gap-4">
                         {User?.role === "recruiter" ? (
                             <>
-                                <Link to="/" className="hover:text-[#464ab7] text-[#16185e] border rounded-full hover:bg-gray-100 text-center  border-gray-400">Company</Link>
-                                <Link to="/admin/jobs" className="hover:text-[#464ab7] text-[#16185e] border rounded-full hover:bg-gray-100 text-center  border-gray-400">Jobs</Link>
+                                <Link to="/" className="hover:text-[#464ab7]  border-b rounded-full hover:bg-gray-100 text-center  border-b-gray-400">Company</Link>
+                                <Link to="/admin/jobs" className="hover:text-[#464ab7]  border rounded-full hover:bg-gray-100 text-center  border-gray-400">Jobs</Link>
                             </>
                         ) : (
                             <>
-                                <Link to="/" className="hover:text-[#464ab7] border rounded-full text-[#16185e] hover:bg-gray-100 text-center  border-gray-400">Home</Link>
-                                <Link to="/jobs" className="hover:text-[#464ab7] border rounded-full text-[#16185e] hover:bg-gray-100 text-center  border-gray-400">Jobs</Link>
-                                <Link to="/browse" className="hover:text-[#464ab7] border rounded-full text-[#16185e] hover:bg-gray-100 text-center  border-gray-400">Browse</Link>
+                                <Link to="/" className="hover:text-[#464ab7] border-b rounded-sm  hover:bg-gray-100 text-center  border-b-gray-400">Home</Link>
+                                <Link to="/jobs" className="hover:text-[#464ab7] border-b rounded-sm  hover:bg-gray-100 text-center  border-b-gray-400">Jobs</Link>
+                                <Link to="/browse" className="hover:text-[#464ab7] border-b rounded-sm  hover:bg-gray-100 text-center  border-b-gray-400">Browse</Link>
                             </>
                         )}
 
                         {!User ? (
                             <>
                                 <Link to="/login">
-                                    <Button variant="outline" className="w-full  ">Login</Button>
+                                    <Button variant="outline" className="w-full mt-4">Login</Button>
                                 </Link>
                                 <Link to="/signup">
                                     <Button className="bg-[#6A38C2] hover:bg-[#3d059d] w-full">Signup</Button>

@@ -1,32 +1,37 @@
 // hooks/useGetAllJobs.js
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setAllJobs } from '@/redux/jobSlice';
 import { JOB_API_END_POINT } from '@/utils/constant';
 
 const useGetAllJobs = () => {
     const dispatch = useDispatch();
-    const { searchedQuery } = useSelector(state => state.job);
 
     useEffect(() => {
         const fetchAllJobs = async () => {
             try {
-                const endpoint = searchedQuery
-                    ? `${JOB_API_END_POINT}/get?keyword=${searchedQuery}`
-                    : `${JOB_API_END_POINT}/get`;
-
+                // Always use get all jobs endpoint
+                const endpoint = `${JOB_API_END_POINT}/get`;
+                
+                console.log("Fetching all jobs from endpoint:", endpoint);
                 const { data } = await axios.get(endpoint);
+                console.log("All jobs data:", data);
                 if (data.success) {
+                    console.log("Setting all jobs in Redux:", data.jobs);
                     dispatch(setAllJobs(data.jobs));
+                } else {
+                    console.log("API returned success=false");
                 }
             } catch (error) {
-                console.error("Error fetching jobs:", error);
+                console.error("Error fetching all jobs:", error);
+                // Dispatch empty array on error to prevent infinite loading
+                dispatch(setAllJobs([]));
             }
         };
 
         fetchAllJobs();
-    }, [searchedQuery, dispatch]);
+    }, [dispatch]);
 };
 
 export default useGetAllJobs;

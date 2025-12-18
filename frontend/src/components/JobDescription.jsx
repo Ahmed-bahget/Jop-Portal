@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
+import Navbar from './shared/Navbar';
 
 
 const JobDescription = () => {
@@ -16,7 +17,9 @@ const JobDescription = () => {
     const params = useParams();
     const jobId = params.id;
     const {User} = useSelector(store=>store.auth);
+    console.log(User);
     const {singleJob} = useSelector(store=>store.job);
+    console.log(singleJob);
     const user = User;
 
     const isApplied = singleJob?.applications?.some(app => app.applicant === user?.id);
@@ -56,7 +59,9 @@ const JobDescription = () => {
 
 
     return (
-        <div className='max-w-4xl mx-auto my-10'>
+        <>
+        <Navbar />
+        <div className='max-w-4xl lg:mx-auto my-10 mx-8'>
             <div className='flex items-center justify-between'>
                 <div className=''>
                     <h1 className='text-xl font-bold'>{singleJob?.title}</h1>
@@ -86,6 +91,7 @@ const JobDescription = () => {
                 <h1 className='font-bold my-1.5'>Posted Date: <span className='pl-2 font-normal text-gray-800'>{singleJob?.createdAt.split("T")[0]}</span></h1>
             </div>
         </div>
+        </>
     )
 }
 
