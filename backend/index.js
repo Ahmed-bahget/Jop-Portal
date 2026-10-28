@@ -8,6 +8,7 @@ import userRoute from "./routes/user.routes.js"
 import companyRoute from "./routes/company.routes.js"
 import jobRoute from "./routes/job.routes.js"
 import applicationRoute from "./routes/application.route.js"
+
 const app = express();
 
 app.get('/home' , (req,res)=>{
@@ -58,6 +59,14 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// Add cache control headers for API responses
+app.use((req, res, next) => {
+  if (req.method === 'GET') {
+    res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  }
+  next();
+});
 
 //api's
 app.use('/api/v1/user',userRoute);
