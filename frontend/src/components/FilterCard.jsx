@@ -37,13 +37,7 @@ const FilterCard = () => {
   const dispatch = useDispatch();
   const { searchedQuery } = useSelector(store => store.job);
 
-  // Clear search query when FilterCard is used (to avoid conflicts with CategoryCarousel search)
-  useEffect(() => {
-    // Only clear search query if it exists
-    if (searchedQuery) {
-      dispatch(setSearchedQuery(""));
-    }
-  }, [dispatch, searchedQuery]);
+  // Don't clear search query automatically to allow combined filters
 
   const changeHandler = (filterType, value) => {
     // Update selected values for this filter type
@@ -81,9 +75,9 @@ const FilterCard = () => {
   };
 
   return (
-    <div className="bg-white shadow-sm border border-gray-100 rounded-md w-full sm:w-80 md:w-96 lg:w-[350px] xl:w-[400px] p-6">
+    <div className="bg-white shadow-sm border border-gray-200 rounded-lg w-full p-5">
       <div>
-        <h1 className="font-bold text-xl mb-4">Filter Jobs</h1>
+        <h1 className="font-bold text-lg mb-4">Filter Jobs</h1>
         <hr className="my-4" />
         
         {/* All Option */}
@@ -97,8 +91,8 @@ const FilterCard = () => {
         
         {/* Dynamic Filters */}
         {filterData.map((section, index) => (
-          <div key={index} className="mb-6">
-            <h2 className="text-sm font-semibold mb-3 text-gray-700">
+          <div key={index} className="mb-6 last:mb-0">
+            <h2 className="text-sm font-semibold mb-3 text-gray-800">
               {section.filterType}
             </h2>
             <RadioGroup 
@@ -111,10 +105,10 @@ const FilterCard = () => {
                   return (
                     <div
                       key={itemId}
-                      className="flex items-center space-x-3 hover:bg-gray-50 p-1 rounded-md transition-colors"
+                      className="flex items-center space-x-3 hover:bg-gray-50 p-1.5 rounded-md transition-colors"
                     >
                       <RadioGroupItem value={option} id={itemId} />
-                      <Label htmlFor={itemId} className="text-sm text-gray-600 cursor-pointer">
+                      <Label htmlFor={itemId} className="text-sm text-gray-700 cursor-pointer flex-1">
                         {option}{section.filterType === "Salary" ? "$" : ""}
                       </Label>
                     </div>

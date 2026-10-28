@@ -20,7 +20,6 @@ const CategoryCarousel = () => {
   const navigate = useNavigate();
 
   const searchJobHandler = (query) => {
-    console.log("CategoryCarousel - Setting search query:", query);
     // Clear all filters first to avoid conflicts
     dispatch(clearFilters());
     // Set the search query and navigate to browse page
