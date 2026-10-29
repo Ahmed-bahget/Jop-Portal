@@ -90,7 +90,7 @@ function Navbar() {
                 </div>
             </div>
             {menuOpen && (
-                <div className="md:hidden absolute bg-white w-[45%] right-0 border border-gray-400 shadow-md p-4 z-50 rounded-md">
+                <div className="md:hidden absolute bg-white w-[45%] right-2 border border-gray-400 shadow-md p-4 z-50 rounded-md">
                     <div className="flex flex-col gap-4">
                         {User?.role === "recruiter" ? (
                             <>
@@ -99,9 +99,9 @@ function Navbar() {
                             </>
                         ) : (
                             <>
-                                <Link to="/" className="hover:text-[#464ab7] border-b rounded-sm  hover:bg-gray-100 text-center  border-b-gray-400">Home</Link>
-                                <Link to="/jobs" className="hover:text-[#464ab7] border-b rounded-sm  hover:bg-gray-100 text-center  border-b-gray-400">Jobs</Link>
-                                <Link to="/browse" className="hover:text-[#464ab7] border-b rounded-sm  hover:bg-gray-100 text-center  border-b-gray-400">Browse</Link>
+                                <Link to="/" className="hover:text-[#464ab7] border rounded-lg  hover:bg-gray-100 text-center  border-b-gray-400">Home</Link>
+                                <Link to="/jobs" className="hover:text-[#464ab7] border rounded-lg  hover:bg-gray-100 text-center  border-b-gray-400">Jobs</Link>
+                                <Link to="/browse" className="hover:text-[#464ab7] border rounded-lg  hover:bg-gray-100 text-center  border-b-gray-400">Browse</Link>
                             </>
                         )}
 

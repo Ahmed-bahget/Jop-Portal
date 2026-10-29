@@ -1,21 +1,27 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Navbar from './components/shared/Navbar'
+import { lazy, Suspense } from 'react'
+import Home from './components/Home'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
-import Home from './components/Home'
+import Logout from './components/auth/Logout'
 import Jobs from './components/Jobs'
 import Browse from './components/Browse'
 import Profile from './components/Profile'
 import JobDescription from './components/JobDescription'
-import Logout from './components/auth/Logout'
-import Companies from './components/admin/Companies'
-import CompanySetup from './components/admin/CompanySetup'
-import { CompanyCreate } from './components/admin/CompanyCreate'
-import AdminJobs from './components/admin/AdminJobs'
-import PostJob from './components/admin/PostJob'
-import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
-import useGetAllJobs from './hooks/useGetAllJobs'
+
+const Companies = lazy(() => import('./components/admin/Companies'))
+const CompanySetup = lazy(() => import('./components/admin/CompanySetup'))
+const CompanyCreate = lazy(() => import('./components/admin/CompanyCreate').then(module => ({ default: module.CompanyCreate })))
+const AdminJobs = lazy(() => import('./components/admin/AdminJobs'))
+const PostJob = lazy(() => import('./components/admin/PostJob'))
+const Applicants = lazy(() => import('./components/admin/Applicants'))
+
+const PageLoader = () => (
+  <div className="flex items-center justify-center h-screen">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+  </div>
+)
 
 const appRouter = createBrowserRouter([
   {
@@ -57,27 +63,27 @@ const appRouter = createBrowserRouter([
   // ADMIN ROUTES
   {
     path:"/admin/companies",
-    element:<ProtectedRoute><Companies/></ProtectedRoute>
+    element:<ProtectedRoute><Suspense fallback={<PageLoader/>}><Companies/></Suspense></ProtectedRoute>
   },
   {
     path:"/admin/companies/create",
-    element:<ProtectedRoute><CompanyCreate/></ProtectedRoute>
+    element:<ProtectedRoute><Suspense fallback={<PageLoader/>}><CompanyCreate/></Suspense></ProtectedRoute>
   },
   {
     path:"/admin/companies/:id",
-    element:<ProtectedRoute><CompanySetup/></ProtectedRoute>
+    element:<ProtectedRoute><Suspense fallback={<PageLoader/>}><CompanySetup/></Suspense></ProtectedRoute>
   },
   {
     path:"/admin/jobs",
-    element:<ProtectedRoute><AdminJobs/></ProtectedRoute>
+    element:<ProtectedRoute><Suspense fallback={<PageLoader/>}><AdminJobs/></Suspense></ProtectedRoute>
   },
   {
     path:"/admin/create/job",
-    element:<ProtectedRoute><PostJob/></ProtectedRoute>
+    element:<ProtectedRoute><Suspense fallback={<PageLoader/>}><PostJob/></Suspense></ProtectedRoute>
   },
   {
     path:"/admin/job/:id/applicants",
-    element:<ProtectedRoute><Applicants/></ProtectedRoute>
+    element:<ProtectedRoute><Suspense fallback={<PageLoader/>}><Applicants/></Suspense></ProtectedRoute>
   },
 ])
 

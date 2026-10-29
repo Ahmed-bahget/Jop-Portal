@@ -56,7 +56,7 @@ const LatestJobs = () => {
                 </div>
 
                 <div className="text-center mt-12">
-                    <Link to="/browse">
+                    <Link to="/jobs">
                         <Button variant="outline" className="gap-2 border-[#6A38C2] text-[#6A38C2] hover:bg-[#6A38C2] hover:text-white">
                             View All Jobs
                             <ArrowRight className="w-4 h-4" />
